@@ -18,7 +18,7 @@ export const AddCity=()=>{
        setCity({...city,[id]:value})
     }
     function handlePost(){
-         axios.post("http://localhost:8080/cities",city).then((res)=>{
+         axios.post("http://localhost:8000/cities",city).then((res)=>{
              alert("data sucessfully added")
              setCity({
                 country:"",
@@ -30,7 +30,7 @@ export const AddCity=()=>{
     }
 // let countryArray=[{name:"India"},{name:"Russia"}]
 function getCountries(){
-axios.get("http://localhost:8080/countries").then((res)=>{
+axios.get("http://localhost:8000/countries").then((res)=>{
     console.log(res.data)
     setCountries([...res.data])
 })

@@ -9,14 +9,29 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import React from "react";
+import Box from '@mui/material/Box';
 import { AddCity } from "./AddCity";
 import { getStepContentUtilityClass } from "@mui/material";
-import {useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom";
+const style = {
+   
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 export const HomePage=()=>{
     let [data,setData]=useState([]);
     let navigate=useNavigate()
     function getData(){
-        axios.get(" http://localhost:8080/cities").then((res)=>{
+        axios.get(" http://localhost:8000/cities").then((res)=>{
             console.log(res.data)
             setData([...res.data]);
         })
@@ -42,12 +57,15 @@ getData()
       return navigate("/add-city")
   }
   function handleDelete(id){
-    axios.delete(`http://localhost:8080/cities/${id}`).then(()=>{
+    axios.delete(`http://localhost:8000/cities/${id}`).then(()=>{
         
         getData();
     })
 
   }
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
     return(
         <>
         <h1>List of cities </h1>
@@ -78,7 +96,22 @@ getData()
                       <TableCell align="right">{item.country}</TableCell>
                       <TableCell align="right">{item.city}</TableCell>
                       <TableCell align="right">{item.population}</TableCell>
-                      <TableCell align="right">Edit</TableCell>
+                      <TableCell align="right" onClick={handleOpen}>Edit</TableCell>
+                      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Text in a modal
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </Typography>
+        </Box>
+      </Modal>
                       <TableCell align="right" onClick={()=>{handleDelete(item.id)}}>Delete </TableCell>
                    </TableRow>
                })

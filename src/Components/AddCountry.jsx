@@ -8,7 +8,7 @@ export const AddCountry=()=>{
         country:""
     })
   function handleAdd(){
-      axios.post("http://localhost:8080/countries",country).then((res)=>{
+      axios.post("http://localhost:8000/countries",country).then((res)=>{
           alert("data added")
           setCountry({country:""})
       })

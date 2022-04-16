@@ -1,0 +1,38 @@
+{
+  "countries": [
+    {
+      "country": "usa",
+      "id": 1
+    },
+    {
+      "country": "Uk",
+      "id": 2
+    }
+  ],
+  "cities": [
+    {
+      "country": "India",
+      "city": "Mumbai",
+      "population": "5000000",
+      "id": 3
+    },
+    {
+      "country": "Bangladesh",
+      "city": "Dhaka",
+      "population": "500000",
+      "id": 4
+    },
+    {
+      "country": "India",
+      "city": "Bengaluru",
+      "population": "1000000",
+      "id": 5
+    },
+    {
+      "country": "Russia",
+      "city": "Moscow",
+      "population": "1200000",
+      "id": 6
+    }
+  ]
+}
