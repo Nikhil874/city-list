@@ -7,6 +7,10 @@
     {
       "country": "Uk",
       "id": 2
+    },
+    {
+      "country": "Russia",
+      "id": 3
     }
   ],
   "cities": [
