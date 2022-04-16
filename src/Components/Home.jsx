@@ -96,7 +96,7 @@ getData()
                       <TableCell align="right">{item.country}</TableCell>
                       <TableCell align="right">{item.city}</TableCell>
                       <TableCell align="right">{item.population}</TableCell>
-                      <TableCell align="right" onClick={handleOpen}>Edit</TableCell>
+                      <TableCell align="right" >Edit</TableCell>
                       <Modal
         open={open}
         onClose={handleClose}
