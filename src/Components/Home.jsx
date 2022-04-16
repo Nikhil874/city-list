@@ -41,9 +41,12 @@ getData()
   function handleAdd(){
       return navigate("/add-city")
   }
-  function handleDelete(e){
-     let {id}=e.target;
-     console.log(e);
+  function handleDelete(id){
+    axios.delete(`http://localhost:8080/cities/${id}`).then(()=>{
+        
+        getData();
+    })
+
   }
     return(
         <>
@@ -76,7 +79,7 @@ getData()
                       <TableCell align="right">{item.city}</TableCell>
                       <TableCell align="right">{item.population}</TableCell>
                       <TableCell align="right">Edit</TableCell>
-                      <TableCell align="right" ><button value={item.id} onClick={(e)=>{handleDelete(e)}}>Delete</button> </TableCell>
+                      <TableCell align="right" onClick={()=>{handleDelete(item.id)}}>Delete </TableCell>
                    </TableRow>
                })
            }
