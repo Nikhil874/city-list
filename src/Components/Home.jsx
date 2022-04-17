@@ -31,7 +31,7 @@ export const HomePage=()=>{
     let [data,setData]=useState([]);
     let navigate=useNavigate()
     function getData(){
-        axios.get(" http://localhost:8000/cities").then((res)=>{
+        axios.get("https://citylist-country.herokuapp.com/cities").then((res)=>{
             console.log(res.data)
             setData([...res.data]);
         })
@@ -57,7 +57,7 @@ getData()
       return navigate("/add-city")
   }
   function handleDelete(id){
-    axios.delete(`http://localhost:8000/cities/${id}`).then(()=>{
+    axios.delete(`https://citylist-country.herokuapp.com/cities/${id}`).then(()=>{
         
         getData();
     })

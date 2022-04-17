@@ -8,7 +8,7 @@ export const AddCountry=()=>{
         country:""
     })
   function handleAdd(){
-      axios.post("http://localhost:8000/countries",country).then((res)=>{
+      axios.post("https://citylist-country.herokuapp.com/countries",country).then((res)=>{
           alert("data added")
           setCountry({country:""})
       })
