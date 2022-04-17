@@ -15,12 +15,6 @@
   ],
   "cities": [
     {
-      "country": "India",
-      "city": "Mumbai",
-      "population": "5000000",
-      "id": 3
-    },
-    {
       "country": "Bangladesh",
       "city": "Dhaka",
       "population": "500000",
