@@ -3,8 +3,12 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-
+import { useDispatch,useSelector } from 'react-redux';
+import { toggleLoading } from "../loginDetails/action";
+import CircularProgress from '@mui/material/CircularProgress';
 export const AddCity=()=>{
+  let loading =useSelector((store)=>store.loading);
+  let dispatch=useDispatch();
     const [city,setCity]=useState({
         country:"",
         city:"",
@@ -14,12 +18,14 @@ export const AddCity=()=>{
     let navigate=useNavigate()
     function handleCity(e){
        const {id,value}=e.target
-       console.log(id,value)
+      //  console.log(id,value)
        setCity({...city,[id]:value})
     }
     function handlePost(){
+      dispatch(toggleLoading(true))
          axios.post("https://citylist-country.herokuapp.com/cities",city).then((res)=>{
-             alert("data sucessfully added")
+          dispatch(toggleLoading(false))    
+         alert("data sucessfully added")
              setCity({
                 country:"",
                 city:"",
@@ -45,8 +51,11 @@ function handleNavigate(value){
         navigate("/")
     }
    }
+
     return(
         <>
+         {loading?<CircularProgress color="secondary"/>:
+         <>
          <Stack spacing={2} direction="row" style={{"margin-left":"40%"}}>
       
         
@@ -74,6 +83,7 @@ function handleNavigate(value){
        <input type="number" value={city.population} id="population" placeholder="enter population" onChange={(e)=>{handleCity(e)}} />
        <br />
         <button onClick={handlePost} >Submit</button>
+        </>}
         </>
     )
 }

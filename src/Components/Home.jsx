@@ -16,6 +16,9 @@ import Box from '@mui/material/Box';
 import { AddCity } from "./AddCity";
 import { getStepContentUtilityClass } from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import { useDispatch,useSelector } from 'react-redux';
+import { toggleLoading } from "../loginDetails/action";
+import CircularProgress from '@mui/material/CircularProgress';
 const style = {
    
     top: '50%',
@@ -28,12 +31,16 @@ const style = {
     p: 4,
   };
 export const HomePage=()=>{
+  let loading =useSelector((store)=>store.loading);
+  let dispatch=useDispatch();
     let [data,setData]=useState([]);
     let navigate=useNavigate()
     function getData(){
+      dispatch(toggleLoading(true))
         axios.get("https://citylist-country.herokuapp.com/cities").then((res)=>{
             console.log(res.data)
             setData([...res.data]);
+            dispatch(toggleLoading(false))  
         })
     }
  
@@ -67,6 +74,8 @@ getData()
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
     return(
+        <>
+        {loading?<CircularProgress color="secondary"/>:
         <>
         <h1>List of cities </h1>
         <Button variant="contained" onClick={handleAdd}>ADD CITY</Button>
@@ -119,6 +128,7 @@ getData()
         </TableBody>
         </Table>
         </TableContainer>
+        </>}
         </>
     )
 }
