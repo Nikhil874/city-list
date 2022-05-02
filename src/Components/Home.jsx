@@ -17,7 +17,7 @@ import { AddCity } from "./AddCity";
 import { getStepContentUtilityClass } from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import { useDispatch,useSelector } from 'react-redux';
-import { toggleLoading } from "../loginDetails/action";
+import { getAPIData, toggleLoading } from "../loginDetails/action";
 import CircularProgress from '@mui/material/CircularProgress';
 const style = {
    
@@ -31,42 +31,25 @@ const style = {
     p: 4,
   };
 export const HomePage=()=>{
-  let loading =useSelector((store)=>store.loading);
+  let {loading,data} =useSelector((store)=>store);
   let dispatch=useDispatch();
-    let [data,setData]=useState([]);
+
     let navigate=useNavigate()
-    function getData(){
-      dispatch(toggleLoading(true))
-        axios.get("https://citylist-country.herokuapp.com/cities").then((res)=>{
-            console.log(res.data)
-            setData([...res.data]);
-            dispatch(toggleLoading(false))  
-        })
-    }
+   
  
   useEffect(()=>{
-getData()
+
+dispatch(getAPIData())
   },[])
-  function handleCountry(){
-  data.sort(function (a,b) {return a.country.localeCompare(b.country)})
-  console.log(data);
- setData([...data])
-  }
-  function handlePopulation(value){
-      if(value==1){
-          data.sort(function(a,b) {return a.population-b.population})
-      }else{
-        data.sort(function(a,b) {return b.population-a.population})
-      }
-      setData([...data])
-  }
+
+ 
   function handleAdd(){
       return navigate("/add-city")
   }
   function handleDelete(id){
     axios.delete(`https://citylist-country.herokuapp.com/cities/${id}`).then(()=>{
-        
-        getData();
+      dispatch(getAPIData())
+   
     })
 
   }
@@ -81,9 +64,9 @@ getData()
         <Button variant="contained" onClick={handleAdd}>ADD CITY</Button>
         <Stack spacing={2} direction="row">
        <h3>Filter By:</h3>     
-      <Button variant="text" onClick={handleCountry}>Country</Button>
-      <Button variant="text" onClick={()=>{handlePopulation(1)}}>Population asc</Button>
-      <Button variant="text" onClick={()=>{handlePopulation(-1)}}>Population desc</Button>
+      <Button variant="text" onClick={()=>{dispatch(getAPIData("con",1))}}>Country</Button>
+      <Button variant="text" onClick={()=>{dispatch(getAPIData("pop",1))}}>Population asc</Button>
+      <Button variant="text" onClick={()=>{dispatch(getAPIData("pop",-1))}}>Population desc</Button>
     </Stack>
         <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">

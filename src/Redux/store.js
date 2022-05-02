@@ -1,4 +1,9 @@
-import {createStore} from "redux";
+import {createStore,applyMiddleware} from "redux";
 import { loginReducer } from "../loginDetails/reducer";
 
-export const store = createStore(loginReducer);
+const thunk=(store)=>(next)=>(action)=>{
+if(typeof action === "function") return action(store.dispatch)
+next(action)
+}
+
+export const store = createStore(loginReducer,applyMiddleware(thunk));
